@@ -130,7 +130,9 @@ public class DialogManager : MonoBehaviour
 
     public void GenerateSelectionButton(int _index)
     {
-
+        int intellegenceValue;
+        int kindnessValue;
+        int complianceValue;
         string[] cells = dialogRows[_index].Split(",");
         if (cells[0] == "#")
         {
@@ -138,8 +140,11 @@ public class DialogManager : MonoBehaviour
             button.GetComponentInChildren<TMP_Text>().text = cells[4];
             button.GetComponent<Button>().onClick.AddListener(
                 delegate
-                { 
-                    StorySelectionClick((int.Parse(cells[5]))); 
+                {
+                    if (cells[6] == "") kindnessValue = 0; else kindnessValue = int.Parse(cells[6]);
+                    if (cells[7] == "") intellegenceValue = 0; else intellegenceValue = int.Parse(cells[7]);
+                    if (cells[8] == "") complianceValue = 0; else complianceValue = int.Parse(cells[8]);
+                    DialogSelectionClick(int.Parse(cells[5]), kindnessValue, intellegenceValue, complianceValue);
                 }); 
             GenerateSelectionButton(_index + 1);
         }
@@ -150,28 +155,38 @@ public class DialogManager : MonoBehaviour
             button.GetComponent<Button>().onClick.AddListener(
                 delegate
                 {
-                    DialogSelectionClick((int.Parse(cells[5])));
+                    if (cells[6] == "") kindnessValue = 0; else kindnessValue = int.Parse(cells[6]);
+                    if (cells[7] == "") intellegenceValue = 0; else intellegenceValue = int.Parse(cells[7]);
+                    if (cells[8] == "") complianceValue = 0; else complianceValue = int.Parse(cells[8]);
+                    DialogSelectionClick(int.Parse(cells[5]), kindnessValue, intellegenceValue, complianceValue);
                 });
             GenerateSelectionButton(_index + 1);
         }
     }
 
-    public void StorySelectionClick(int _targrtIndex)
+    public void StorySelectionClick(int _targrtIndex,int kindnessValue,int intellegenceValue,int complianceValue)
     {
         targetDialogID = _targrtIndex;
+        TakeSelectionEffect(kindnessValue, intellegenceValue, complianceValue);
         ShowDialogRow();
         for(int i = 0;i < storyButtonGroup.childCount;i++)
         {
             Destroy(storyButtonGroup.GetChild(i).gameObject);
         }
     }
-    public void DialogSelectionClick(int _targrtIndex)
+    public void DialogSelectionClick(int _targrtIndex, int kindnessValue, int intellegenceValue, int complianceValue)
     {
         targetDialogID = _targrtIndex;
+        TakeSelectionEffect(kindnessValue, intellegenceValue, complianceValue);
         ShowDialogRow();
         for (int i = 0; i < dialogButtonGroup.childCount; i++)
         {
             Destroy(dialogButtonGroup.GetChild(i).gameObject);
         }
+    }
+
+    public void TakeSelectionEffect(int kindnessValue, int intellegenceValue, int complianceValue)
+    {
+        UIManager.instance.ChangeVaule(kindnessValue, intellegenceValue, complianceValue);
     }
 }
