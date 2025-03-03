@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
-    public UnityEngine.TextAsset dialogDataFile;
 
     public Image character_left;
     public Image character_right;
@@ -33,12 +32,15 @@ public class DialogManager : MonoBehaviour
 
     public int targetDialogID;
     public string[] dialogRows;
+
+    public static DialogManager instance;
     private void Awake()
     {
-        imageDic["c1"] = sprites[0];
-        imageDic["c2"] = sprites[1];
-        ReadText(dialogDataFile);
-        ShowDialogRow();
+        instance = this;
+        imageDic["empty"] = sprites[0];
+        imageDic["c1"] = sprites[1];
+        imageDic["c2"] = sprites[2];
+
     }
 
     public void UpdateStory(string _storyText)
@@ -76,6 +78,11 @@ public class DialogManager : MonoBehaviour
         }
     }
 
+    public void StartAStory(UnityEngine.TextAsset _asset)
+    {
+        ReadText(_asset);
+        ShowDialogRow();
+    }
     public void ReadText(UnityEngine.TextAsset _asset)
     {
         dialogRows = _asset.text.Split('\n');
@@ -83,7 +90,6 @@ public class DialogManager : MonoBehaviour
         {
             string[] cell = row.Split(',');
         }
-        Debug.Log("Success");
     }
 
     public void ShowDialogRow()
@@ -187,6 +193,6 @@ public class DialogManager : MonoBehaviour
 
     public void TakeSelectionEffect(int kindnessValue, int intellegenceValue, int complianceValue)
     {
-        UIManager.instance.ChangeVaule(kindnessValue, intellegenceValue, complianceValue);
+        UIManager.instance.ChangeValue(kindnessValue, intellegenceValue, complianceValue);
     }
 }
