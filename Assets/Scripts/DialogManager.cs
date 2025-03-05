@@ -37,9 +37,10 @@ public class DialogManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        imageDic["empty"] = sprites[0];
-        imageDic["c1"] = sprites[1];
-        imageDic["c2"] = sprites[2];
+        imageDic["Empty"] = sprites[0];
+        imageDic["Me"] = sprites[1];
+        imageDic["Mark"] = sprites[2];
+        imageDic["Lily"] = sprites[3];
 
     }
 
@@ -80,6 +81,8 @@ public class DialogManager : MonoBehaviour
 
     public void StartAStory(UnityEngine.TextAsset _asset)
     {
+        character_left.sprite = imageDic["Empty"];
+        character_right.sprite = imageDic["Empty"];
         ReadText(_asset);
         ShowDialogRow();
     }
