@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+
 public class DialogManager : MonoBehaviour
 {
     public Image character_left;
@@ -24,7 +25,7 @@ public class DialogManager : MonoBehaviour
     public List<Sprite> sprites = new List<Sprite>();
     private Dictionary<string, Sprite> imageDic = new Dictionary<string, Sprite>();
 
-    public GameObject caseBoard;
+    public GameObject storySystem;
     public GameObject dialogSystem;
 
     public int targetDialogID;
@@ -46,6 +47,11 @@ public class DialogManager : MonoBehaviour
         imageDic["Me"] = sprites[1];
         imageDic["Mark"] = sprites[2];
         imageDic["Lily"] = sprites[3];
+        imageDic["Therapist"] = sprites[4];
+        imageDic["Charles"] = sprites[5];
+        imageDic["Charles's Mother"] = sprites[6];
+        imageDic["Charles's Father"] = sprites[7];
+
 
     }
 
@@ -75,8 +81,9 @@ public class DialogManager : MonoBehaviour
             {
                 character_left.sprite = imageDic[_name];
                 nameText_left.text = _name;
+                dialogBox_left.GetComponentInChildren<TMP_Text>().text = _characterText;
             }
-            typingCoroutine = StartCoroutine(TypeSentence(dialogBox_left.GetComponentInChildren<TMP_Text>(), _characterText));
+            
         }
         else if (_position == "r")
         {
@@ -127,13 +134,16 @@ public class DialogManager : MonoBehaviour
     {
         character_left.sprite = imageDic["Empty"];
         character_right.sprite = imageDic["Empty"];
+        nameText_left.text = null;
+        nameText_right.text = null;
+        targetDialogID = 0;
         ReadText(_asset);
         ShowDialogRow();
     }
 
     public void ReadText(TextAsset _asset)
     {
-        dialogRows = _asset.text.Split('\n');
+        dialogRows = _asset.text.Split(new[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.None);
     }
 
     public void ShowDialogRow()
@@ -141,32 +151,56 @@ public class DialogManager : MonoBehaviour
         for (int i = 0; i < dialogRows.Length; i++)
         {
             string[] cells = dialogRows[i].Split(",");
-            if (cells[0] == "!" && int.Parse(cells[1]) == targetDialogID)
+
+            // 确保数组长度足够，防止索引越界
+            if (cells.Length <= 9)
+                continue;
+
+            // 解析 cells[1]，避免 FormatException
+            if (!int.TryParse(cells[1].Trim(), out int dialogID))
+                continue; // 如果解析失败，跳过本次循环
+
+            if (dialogID == targetDialogID && (cells[9] == "City" || cells[9] == "House" || cells[9] == "Office"))
+            {
+                GameManager.Instance.JumpToNewScene(cells[9]);
+
+            }
+
+            if (cells[0] == "End" && dialogID == targetDialogID)
             {
                 dialogSystem.SetActive(false);
-                caseBoard.SetActive(true);
+            }
+            else if (cells[0] == "!" && dialogID == targetDialogID)
+            {
+                dialogSystem.SetActive(false);
+                storySystem.SetActive(true);
+                dialogSystem.SetActive(true);
                 UpdateStory(cells[4]);
 
-                targetDialogID = int.Parse(cells[5]);
+                if (int.TryParse(cells[5].Trim(), out int nextDialogID))
+                    targetDialogID = nextDialogID;
+
                 storyNextButton.SetActive(true);
                 break;
             }
-            else if (cells[0] == "$" && int.Parse(cells[1]) == targetDialogID)
+            else if (cells[0] == "$" && dialogID == targetDialogID)
             {
                 dialogSystem.SetActive(true);
-                caseBoard.SetActive(false);
+                storySystem.SetActive(false);
                 UpdateDialog(cells[2], cells[3], cells[4]);
 
-                targetDialogID = int.Parse(cells[5]);
+                if (int.TryParse(cells[5].Trim(), out int nextDialogID))
+                    targetDialogID = nextDialogID;
+
                 dialogNextButton.SetActive(true);
                 break;
             }
-            else if (cells[0] == "#" && int.Parse(cells[1]) == targetDialogID)
+            else if (cells[0] == "#" && dialogID == targetDialogID)
             {
                 storyNextButton.SetActive(false);
                 GenerateSelectionButton(i);
             }
-            else if (cells[0] == "%" && int.Parse(cells[1]) == targetDialogID)
+            else if (cells[0] == "%" && dialogID == targetDialogID)
             {
                 dialogNextButton.SetActive(false);
                 GenerateSelectionButton(i);

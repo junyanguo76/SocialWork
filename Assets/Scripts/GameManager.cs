@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject CityPanel;
     public GameObject HousePanel;
+    public GameObject OfficePanel;
 
 
     // 按钮数组，按顺序分别为 case1、case2、case3
@@ -36,25 +37,33 @@ public class GameManager : MonoBehaviour
     void SetupButton(Button button, TextAsset csv)
     {
         button.onClick.AddListener(() => {
-            JumpToCase();
-        });
-        button.onClick.AddListener(() => {
             DialogManager.instance.StartAStory(csv);
         });
     }
-    public void JumpToCase()
+
+
+    public void JumpToNewScene(string sceneName)
     {
 
-        StartCoroutine(WaitForOneSecond());
+        StartCoroutine(WaitForOneSecond(sceneName));
         ScreenTransition.instance.StartBlackScreenTransition();
 
     }
 
-    private IEnumerator WaitForOneSecond()
+    private IEnumerator WaitForOneSecond(string sceneName)
     {
         yield return new WaitForSeconds(1f);
         CityPanel.SetActive(false);
+        OfficePanel.SetActive(false);
+        HousePanel.SetActive(false);
+
         yield return new WaitForSeconds(0.5f);
-        HousePanel.SetActive(true);
+        switch (sceneName)
+        {
+            case "Office": OfficePanel.SetActive(true); break;
+            case "City":CityPanel.SetActive(true); break;
+            case "House": HousePanel.SetActive(true); break;
+        }
+
     }
 }
