@@ -40,6 +40,9 @@ public class DialogManager : MonoBehaviour
     public AudioSource AudioSource;
     public AudioClip AudioClip;
 
+    private int caseCount = 0;
+    public TextAsset endFile;
+
     private void Awake()
     {
         instance = this;
@@ -48,11 +51,25 @@ public class DialogManager : MonoBehaviour
         imageDic["Mark"] = sprites[2];
         imageDic["Lily"] = sprites[3];
         imageDic["Therapist"] = sprites[4];
-        imageDic["Charles"] = sprites[5];
-        imageDic["Charles's Mother"] = sprites[6];
-        imageDic["Charles's Father"] = sprites[7];
+        imageDic["Vivian"] = sprites[5];
+        imageDic["Vivian's Mother"] = sprites[6];
+        imageDic["Vivian's Father"] = sprites[7];
+        imageDic["Ryan"] = sprites[8];
+        imageDic["Caroline"] = sprites[9];
+        imageDic["Kim"] = sprites[10];
+        imageDic["Kim's Father"] = sprites[11];
+        imageDic["Kim's Mother"] = sprites[12];
+        imageDic["Alex"] = sprites[13];
+        imageDic["Alex's Father"] = sprites[14];
 
 
+    }
+    private void Update()
+    {
+        if(caseCount == 3)
+        {
+            ReadText(endFile);
+        }
     }
 
     public void UpdateStory(string _storyText)
@@ -169,6 +186,8 @@ public class DialogManager : MonoBehaviour
             if (cells[0] == "End" && dialogID == targetDialogID)
             {
                 dialogSystem.SetActive(false);
+                storySystem.SetActive(false);
+                caseCount++;
             }
             else if (cells[0] == "!" && dialogID == targetDialogID)
             {

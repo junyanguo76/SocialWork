@@ -1261,7 +1261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &212458623
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4144,7 +4144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 18545a72d53398e4fb9454cb80a6e681, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d37fb5587af49c04794ef5156e825902, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4332,7 +4332,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 299, y: -308}
+  m_AnchoredPosition: {x: 319, y: -323}
   m_SizeDelta: {x: 84.2933, y: 27.8326}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &818726308
@@ -4477,10 +4477,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dc64ee44c75753848a890e4b735a6ab3, type: 3}
   - {fileID: 21300000, guid: 827dcb4d40afe5f42ae669243ca3a8bb, type: 3}
   - {fileID: 21300000, guid: 18545a72d53398e4fb9454cb80a6e681, type: 3}
-  - {fileID: 21300000, guid: 18545a72d53398e4fb9454cb80a6e681, type: 3}
-  - {fileID: 21300000, guid: 18545a72d53398e4fb9454cb80a6e681, type: 3}
-  - {fileID: 21300000, guid: 18545a72d53398e4fb9454cb80a6e681, type: 3}
-  - {fileID: 21300000, guid: 18545a72d53398e4fb9454cb80a6e681, type: 3}
+  - {fileID: 21300000, guid: 0129352970ec5144dbd3843b928c963f, type: 3}
+  - {fileID: 21300000, guid: 2576f72dc375f6c43bee8e5c88a5c755, type: 3}
+  - {fileID: 21300000, guid: d37fb5587af49c04794ef5156e825902, type: 3}
+  - {fileID: 21300000, guid: 4852e0ff0d8fc4144b8f7b64dd703eda, type: 3}
+  - {fileID: 21300000, guid: 1dd8b30664b5f1c49ab5b40dc27218dc, type: 3}
+  - {fileID: 21300000, guid: a148dde95d78fad47b219547d65b3831, type: 3}
+  - {fileID: 21300000, guid: 615ccbfe70390454892de6e32bf4da3b, type: 3}
+  - {fileID: 21300000, guid: 4c82dd6de43d38342b8925676065d071, type: 3}
+  - {fileID: 21300000, guid: eef367a80127cde4eb29e9606ae2a33f, type: 3}
+  - {fileID: 21300000, guid: b44c4e194d154e74c874f5c2e6797dfb, type: 3}
+  - {fileID: 21300000, guid: e06487e7467b70140a2ccf90db672293, type: 3}
   storySystem: {fileID: 1160814969}
   dialogSystem: {fileID: 212458622}
   targetDialogID: 0
@@ -4488,6 +4495,7 @@ MonoBehaviour:
   typingSpeed: 0.04
   AudioSource: {fileID: 820329407}
   AudioClip: {fileID: 8300000, guid: 1a18f146bf166d94293a7d3243646f2e, type: 3}
+  endFile: {fileID: 4900000, guid: 26683fa709f73824b95e7d7983d9d3ce, type: 3}
 --- !u!4 &820329406
 Transform:
   m_ObjectHideFlags: 0
@@ -5471,7 +5479,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I'm so hungry.:;''''"""''
+  m_text: "\uFF08OvO\uFF09"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9d7c11f53f886b54190659fdb5081e7b, type: 2}
   m_sharedMaterial: {fileID: -5361076694419573364, guid: 9d7c11f53f886b54190659fdb5081e7b, type: 2}
@@ -6349,7 +6357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1160814970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9160,10 +9168,13 @@ MonoBehaviour:
   buttons:
   - {fileID: 82705932}
   - {fileID: 1558461306}
-  - {fileID: 1558461306}
+  - {fileID: 893949654}
+  - {fileID: 1393055254}
   csvFiles:
   - {fileID: 4900000, guid: 9ce33a6339783e746b54d4848741e571, type: 3}
   - {fileID: 4900000, guid: f262c7b8c6b9ec846ae93464d1934532, type: 3}
+  - {fileID: 4900000, guid: 3bd6095671d17b04c84e50abd19bd635, type: 3}
+  - {fileID: 4900000, guid: 6e1640e5d7049b24b9ffdc78c62cdfec, type: 3}
 --- !u!4 &1909338370
 Transform:
   m_ObjectHideFlags: 0
@@ -9272,7 +9283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1927662553
 RectTransform:
   m_ObjectHideFlags: 0
