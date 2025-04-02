@@ -1,12 +1,5 @@
-﻿sysmbol,ID,character,position,Text,Jump,kindness,intellegence,compliance,,,,csv bug
-$,0,Lily,r,"Thank you so much for trying out the demo version of this game! This is all the content available for now, and I hope you had a great gaming experience.",1,,,,,,,
-$,1,Lily,r,"If there are future updates, more cases will be added, and in the first scene, little Vivian’s case will also be handled by the player—so don’t worry too much about her (OvO).",2,,,,,,,
-$,2,Lily,r,"And, please take a moment to fill out the survey attached to the email. It really means a lot to me. Once again, thank you for playing, and see you next time!",3,,,,,,,
+﻿sysmbol,ID,character,position,Text,Jump,kindness,intellegence,compliance,sound,,,csv bug
+$,0,Lily,r,Thank you so much for trying out the demo version of this game! This is all the content available for now， and I hope you had a great gaming experience.,1,,,,key,,,
+$,1,Lily,r,If there are future updates， more cases will be added， and in the first scene， little Vivian’s case will also be handled by the player—so don’t worry too much about her (OvO).,2,,,,,,,
+$,2,Lily,r,And， please take a moment to fill out the survey attached to the email. It really means a lot to me. Once again， thank you for playing， and see you next time!,3,,,,,,,
 End,3,,,,,,,,,,,
-,,,,,,,,,,,,
-,,,,,,,,,,,,
-,,,,,,,,,,,,
-,,,,,,,,,,,,
-,,,,,,,,,,,,
-,,,,,,,,,,,,
-,,,,,,,,,,,,

@@ -40,8 +40,11 @@ public class DialogManager : MonoBehaviour
     public AudioSource AudioSource;
     public AudioClip AudioClip;
 
-    private int caseCount = 0;
+    public int caseCount = 0;
     public TextAsset endFile;
+
+    public AudioClip clickSound; // 点击时播放的音效
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -62,13 +65,19 @@ public class DialogManager : MonoBehaviour
         imageDic["Alex"] = sprites[13];
         imageDic["Alex's Father"] = sprites[14];
 
-
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = clickSound;
     }
+
+    private bool hasResetTargetDialog = false;
     private void Update()
     {
-        if(caseCount == 3)
+        if (caseCount == 3 && !hasResetTargetDialog)
         {
+            targetDialogID = 0;
+            hasResetTargetDialog = true; // 确保只执行一次
             ReadText(endFile);
+            ShowDialogRow();
         }
     }
 
@@ -146,13 +155,16 @@ public class DialogManager : MonoBehaviour
         yield return new WaitForSeconds(typingSpeed * 0.5f); // 音效的播放时长与打字速度同步
     }
 
+    private IEnumerator StoryFirstShow()
+    {
+        dialogSystem.SetActive(false);
+        yield return new WaitForSeconds(1);
+        storySystem.SetActive(true);
+        dialogSystem.SetActive(true);
+    }
 
     public void StartAStory(TextAsset _asset)
     {
-        character_left.sprite = imageDic["Empty"];
-        character_right.sprite = imageDic["Empty"];
-        nameText_left.text = null;
-        nameText_right.text = null;
         targetDialogID = 0;
         ReadText(_asset);
         ShowDialogRow();
@@ -177,10 +189,19 @@ public class DialogManager : MonoBehaviour
             if (!int.TryParse(cells[1].Trim(), out int dialogID))
                 continue; // 如果解析失败，跳过本次循环
 
-            if (dialogID == targetDialogID && (cells[9] == "City" || cells[9] == "House" || cells[9] == "Office"))
+            if (dialogID == targetDialogID && (cells[9] == "City" || cells[9] == "House" 
+                || cells[9] == "Office" || cells[9] == "Coffe" || cells[9] == "Meeting"))
             {
+                character_left.sprite = imageDic["Empty"];
+                character_right.sprite = imageDic["Empty"];
+                nameText_left.text = null;
+                nameText_right.text = null;
                 GameManager.Instance.JumpToNewScene(cells[9]);
 
+            }
+            if (cells[10] == "key" && dialogID == targetDialogID)
+            {
+                audioSource.PlayOneShot(clickSound);
             }
 
             if (cells[0] == "End" && dialogID == targetDialogID)
@@ -191,9 +212,16 @@ public class DialogManager : MonoBehaviour
             }
             else if (cells[0] == "!" && dialogID == targetDialogID)
             {
-                dialogSystem.SetActive(false);
-                storySystem.SetActive(true);
-                dialogSystem.SetActive(true);
+                if(cells[9].Length >=1)
+                {
+                    StartCoroutine(StoryFirstShow());
+                }
+                else
+                {
+                    dialogSystem.SetActive(false);
+                    storySystem.SetActive(true);
+                    dialogSystem.SetActive(true);
+                }
                 UpdateStory(cells[4]);
 
                 if (int.TryParse(cells[5].Trim(), out int nextDialogID))
@@ -221,6 +249,11 @@ public class DialogManager : MonoBehaviour
             }
             else if (cells[0] == "%" && dialogID == targetDialogID)
             {
+                if(cells[2] == "Me")
+                {
+                    character_left.sprite = imageDic[cells[2]];
+                    nameText_left.text = cells[2];
+                }
                 dialogNextButton.SetActive(false);
                 GenerateSelectionButton(i);
             }

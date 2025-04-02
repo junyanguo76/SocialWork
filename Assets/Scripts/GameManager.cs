@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public GameObject CityPanel;
     public GameObject HousePanel;
     public GameObject OfficePanel;
+    public GameObject CoffePanel;
+    public GameObject MeetingPanel;
 
 
     // 按钮数组，按顺序分别为 case1、case2、case3
@@ -22,6 +24,9 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         RegisterButtons();
+
+
+
     }
 
     void RegisterButtons()
@@ -56,6 +61,8 @@ public class GameManager : MonoBehaviour
         CityPanel.SetActive(false);
         OfficePanel.SetActive(false);
         HousePanel.SetActive(false);
+        MeetingPanel.SetActive(false);
+        CoffePanel.SetActive(false);
 
         yield return new WaitForSeconds(0.5f);
         switch (sceneName)
@@ -63,6 +70,8 @@ public class GameManager : MonoBehaviour
             case "Office": OfficePanel.SetActive(true); break;
             case "City":CityPanel.SetActive(true); break;
             case "House": HousePanel.SetActive(true); break;
+            case "Meeting": MeetingPanel.SetActive(true); break;
+            case "Coffe": CoffePanel.SetActive(true);break;
         }
 
     }
